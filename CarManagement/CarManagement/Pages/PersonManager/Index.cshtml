@@ -1,0 +1,210 @@
+﻿@page
+@model CarManagement.Pages.PersonManager.IndexModel
+@{
+    ViewData["Title"] = "Index";
+    int i = 1;
+}
+
+<div class="container">
+
+    <div class="field is-grouped is-pulled-left ">
+        <p class="control">
+            <input dir="rtl" id="myInput" class="input is-rounded" type="text">
+        </p>
+        <p class="control">
+            :جستجو
+        </p>
+
+    </div>
+
+    <button class="button is-primary toggle-modal is-pulled-right ">  جدید</button>
+
+    <div id="vahed-modal" class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title has-text-centered">ثبت شخص جدید</p>
+                <button class="delete close-modal" aria-label="close"></button>
+            </header>
+            <form method="post" asp-page="Index" asp-page-handler="Create">
+                <section class="modal-card-body has-text-right ">
+
+                    <div class="field ">
+                        <label class="label">نام و نام خانوادگی </label>
+                        <div class="control">
+
+                            <input dir="rtl" asp-for="@Model.Person.Name" class="input is-rounded" />
+
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">کد ملی</label>
+                        <div class="control">
+
+                            <input dir="rtl" asp-for="@Model.Person.MelliCode" class="input is-rounded" />
+
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">همراه</label>
+                        <div class="control">
+
+                            <input dir="rtl" asp-for="@Model.Person.CellPhone" class="input is-rounded" />
+
+                        </div>
+                    </div>
+
+
+                  
+
+                </section>
+                <footer class="modal-card-foot">
+                    <input type="submit" class="button is-success" value="ذخیره" />
+
+                    <input type="button" class="button close-modal" value="انصراف" />
+
+                </footer>
+
+            </form>
+        </div>
+    </div>
+
+
+    <br /><br />
+</div>
+
+
+
+<table id="myTable" dir="rtl" class=" table is-bordered is-striped is-narrow is-hoverable is-fullwidth ">
+    <thead>
+    <tr>
+        <th class="has-text-centered">
+           ردیف
+        </th>
+        <th class="has-text-centered">
+            نام و نام خانوادگی
+        </th>
+        <th class="has-text-centered">
+            کدملی
+        </th>
+        <th class="has-text-centered">
+            همراه
+        </th>
+        <th class="has-text-centered">
+            ویرایش
+        </th>
+
+
+        <th class="has-text-centered">
+            حذف
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.LstPerson)
+        {
+            <tr>
+                <td class="has-text-centered">
+                   @(i++)
+                </td>
+
+                <td class="has-text-centered">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td class="has-text-centered">
+                    @Html.DisplayFor(modelItem => item.MelliCode)
+                </td>
+                <td class="has-text-centered">
+                    @Html.DisplayFor(modelItem => item.CellPhone)
+                </td>
+
+               
+
+                <td class="has-text-centered">
+                    <span class="button icon toggle-modal">
+                        <i class="fas fa-marker"></i>
+                    </span>
+                 
+                    <div id="vahed-modal" class="modal">
+                        <div class="modal-background"></div>
+                        <div class="modal-card">
+                            <header class="modal-card-head">
+                                <p class="modal-card-title has-text-centered">ویرایش</p>
+                                <button class="delete close-modal" aria-label="close"></button>
+                            </header>
+                            <form method="post" asp-page="Index" asp-page-handler="Edit">
+                                <section class="modal-card-body has-text-right ">
+
+                                    <div class="field ">
+                                        <label class="label">نام و نام خانوادگی </label>
+                                        <div class="control">
+
+                                            <input dir="rtl" asp-for="@Model.Person.Name" value="@item.Name" class="input is-rounded"/>
+
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <label class="label">کد ملی </label>
+                                        <div class="control">
+
+                                            <input dir="rtl" asp-for="@Model.Person.MelliCode" value="@item.MelliCode" class="input is-rounded"/>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="field">
+                                        <label class="label">همراه </label>
+                                        <div class="control">
+
+                                            <input dir="rtl" asp-for="@Model.Person.CellPhone" value="@item.CellPhone" class="input is-rounded"/>
+
+                                        </div>
+                                    </div>
+
+                                    <input asp-for="@Model.Person.Id" value="@item.Id" type="hidden"/>
+
+                                </section>
+                                <footer class="modal-card-foot">
+                                    <input type="submit" class="button is-success" value="ذخیره"/>
+
+                                    <input type="button" class="button close-modal" value="انصراف"/>
+
+                                </footer>
+                            </form>
+                        </div>
+                    </div>
+               
+                    </td>
+
+                <td class="has-text-centered">
+                    <span class="button icon toggle-modal">
+                        <i class="fas fa-trash"></i>
+                    </span>
+
+
+                    <div id="vahed-modal" class="modal">
+                        <div class="modal-background"></div>
+                        <div class="modal-card">
+                            <header class="modal-card-head">
+                                <p class="modal-card-title has-text-centered">اخطار</p>
+                                <button class="delete close-modal" aria-label="close"></button>
+                            </header>
+                            <form method="post" asp-page="Index" asp-page-handler="Delete" >
+                                <section class="modal-card-body has-text-right ">حذف شود؟</section>
+                                <footer class="modal-card-foot">
+                                   <input asp-for="Person.Id" type="hidden" value="@item.Id"/>
+                                    <input type="submit" class="button is-success" value="ذخیره"/>
+
+                                    <input type="button" class="button close-modal" value="انصراف"/>
+
+                                </footer>
+                            </form>
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

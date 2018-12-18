@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\BimehController.cs" />
+    <Compile Remove="Controllers\DriverController.cs" />
+    <Compile Remove="Controllers\FanniController.cs" />
+    <Compile Remove="Controllers\FanniOperationController.cs" />
+    <Compile Remove="Controllers\FanniOperationDetailController.cs" />
+    <Compile Remove="Controllers\FuelController.cs" />
+    <Compile Remove="Controllers\FuelTypeController.cs" />
+    <Compile Remove="Controllers\MamoriatController.cs" />
+    <Compile Remove="Controllers\PersonalCarController.cs" />
+    <Compile Remove="Controllers\TasadofController.cs" />
+    <Compile Remove="Controllers\UserActivityController.cs" />
+    <Compile Remove="Controllers\UserController.cs" />
+    <Compile Remove="Controllers\VahedController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.7.2" />
+  </ItemGroup>
+
+</Project>

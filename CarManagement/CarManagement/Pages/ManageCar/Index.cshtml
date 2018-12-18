@@ -1,0 +1,269 @@
+﻿@page 
+@using MongoDB.Bson
+@model CarManagement.Pages.ManageCar.IndexModel
+
+@{
+    ViewData["Title"] = "مدیریت خودرو";
+    int i = 1;
+    // var x=Model.PageContext.HttpContext.Request.Cookies[MagicString.RolePermission];
+   // Layout = "Shared/_Layout";
+}
+
+
+<div class="container">
+
+    <div class="field is-grouped is-pulled-left ">
+        <p class="control">
+            <input dir="rtl" id="myInput" class="input is-rounded" type="text">
+        </p>
+        <p class="control">
+            :جستجو
+        </p>
+
+    </div>
+
+    <button class="button is-primary toggle-modal is-pulled-right ">  جدید</button>
+
+    <div id="vahed-modal" class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title has-text-centered">ثبت خودرو جدید</p>
+                <button class="delete close-modal" aria-label="close"></button>
+            </header>
+            <form method="post" asp-page="Index" asp-page-handler="Create">
+                <section class="modal-card-body has-text-right ">
+
+                    <div class="field ">
+                        <label class="label">نام خودرو </label>
+                        <div class="control">
+
+                            <input dir="rtl" asp-for="@Model.Car.Name" class="input is-rounded" />
+
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">پلاک</label>
+                        <div class="control">
+
+                            <input dir="rtl" asp-for="@Model.Car.Pelak" class="input is-rounded" />
+
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">رنگ</label>
+                        <div class="control">
+
+                            <input dir="rtl" asp-for="@Model.Car.Color" class="input is-rounded" />
+
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="field">
+                        <label class="label">مدل</label>
+                        <div class="control">
+
+                            <input dir="rtl" asp-for="@Model.Car.Model" class="input is-rounded" />
+
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="field">
+                        <label class="label">تحویل گیرنده</label>
+                        <div class="control">
+                            
+                            <select dir="rtl" asp-for="@Model.Car.Transferee" class="select is-fullwidth " asp-items="ViewBag.transfreeId"></select>
+
+                            @*<input dir="rtl" asp-for="@Model.Car.Transferee" class="input is-rounded" />*@
+
+                        </div>
+                    </div>
+
+                </section>
+                <footer class="modal-card-foot">
+                    <input type="submit" class="button is-success" value="ذخیره" />
+
+                    <input type="button" class="button close-modal" value="انصراف" />
+
+                </footer>
+
+            </form>
+        </div>
+    </div>
+
+
+    <br /><br />
+</div>
+
+
+<table id="myTable" dir="rtl" class=" table is-bordered is-striped is-narrow is-hoverable is-fullwidth ">
+    <thead>
+        <tr>
+            <th class="has-text-centered">
+                نام 
+            </th>
+            <th class="has-text-centered">
+                پلاک
+            </th>
+            <th class="has-text-centered">
+              رنگ
+            </th>
+
+            <th class="has-text-centered">
+                مدل
+            </th>
+            <th class="has-text-centered">
+                تحویل گیرنده
+            </th>
+            <th class="has-text-centered">
+                ویرایش
+            </th>
+            <th class="has-text-centered">
+                حذف
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.LstCarViewModel)
+        {
+            <tr>
+
+                <td class="has-text-centered">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td class="has-text-centered">
+                    @Html.DisplayFor(modelItem => item.Pelak)
+                </td>
+                <td class="has-text-centered">
+                    @Html.DisplayFor(modelItem => item.Color)
+                </td>
+                <td class="has-text-centered">
+                    @Html.DisplayFor(modelItem => item.Model)
+                </td>
+                <td class="has-text-centered">
+                    @Html.DisplayFor(modelItem => item.TransfereeName)
+                </td>
+              
+
+
+                <td class="has-text-centered">
+                    <span class="button icon toggle-modal">
+                        <i class="fas fa-marker"></i>
+                    </span>
+
+
+                    @*<vc:edit-vahed-modal v="@item" ></vc:edit-vahed-modal>*@
+
+
+
+                    <div id="vahed-modal" class="modal">
+                        <div class="modal-background"></div>
+                        <div class="modal-card">
+                            <header class="modal-card-head">
+                                <p class="modal-card-title has-text-centered">جدید</p>
+                                <button class="delete close-modal" aria-label="close"></button>
+                            </header>
+                            <form method="post" asp-page="Index" asp-page-handler="Edit">
+                                <section class="modal-card-body has-text-right ">
+
+                                    <div class="field ">
+                                        <label class="label">نام </label>
+                                        <div class="control">
+
+                                            <input dir="rtl" asp-for="@Model.Car.Name" value="@item.Name" class="input is-rounded" />
+
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <label class="label">پلاک </label>
+                                        <div class="control">
+
+                                            <input dir="rtl" asp-for="@Model.Car.Pelak" value="@item.Pelak" class="input is-rounded" />
+
+                                        </div>
+                                    </div>
+
+                                    <div class="field">
+                                        <label class="label">رنگ </label>
+                                        <div class="control">
+
+                                            <input dir="rtl" asp-for="@Model.Car.Color" value="@item.Color" class="input is-rounded" />
+
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <label class="label">مدل </label>
+                                        <div class="control">
+
+                                            <input dir="rtl" asp-for="@Model.Car.Model" value="@item.Model" class="input is-rounded" />
+
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="field">
+                                        <label class="label">تحویل گیرنده </label>
+                                        <div class="control">
+
+                                            <select dir="rtl" asp-for="@Model.Car.Transferee" class="select is-fullwidth " asp-items="ViewBag.transfreeId"  ></select>
+
+                                            @*<input dir="rtl" asp-for="@Model.Car.Transferee " value="@item.Transferee " class="input is-rounded" />*@
+
+                                        </div>
+                                    </div>
+
+                                    @{
+                                        var _id = new BsonObjectId(item.Id);
+                                    }
+                                    <input asp-for="@Model.Car.Id" value="@_id.ToString()" type="hidden" />
+                         
+
+                                </section>
+                                <footer class="modal-card-foot">
+                                    <input type="submit" class="button is-success" value="ذخیره" />
+
+                                    <input type="button" class="button close-modal" value="انصراف" />
+
+                                </footer>
+                            </form>
+                        </div>
+                    </div>
+
+                </td>
+
+                <td class="has-text-centered">
+                    <span class="button icon toggle-modal">
+                        <i class="fas fa-trash"></i>
+                    </span>
+                   
+                    
+                    <div id="vahed-modal" class="modal">
+                        <div class="modal-background"></div>
+                        <div class="modal-card">
+                            <header class="modal-card-head">
+                                <p class="modal-card-title has-text-centered">اخطار</p>
+                                <button class="delete close-modal" aria-label="close"></button>
+                            </header>
+                            <form  method="post"  asp-page="Index"   asp-page-handler="Delete" >
+                             
+                                <input asp-for="@Model.Id" type="hidden" value="@item.Id"/>
+                                <section class="modal-card-body has-text-right ">حذف شود؟</section>
+
+                                <footer class="modal-card-foot">
+                                    <input  type="submit" class="button is-success" value="ذخیره" />
+
+                                    <input   type="button" class="button close-modal" value="انصراف" />
+
+                                </footer>
+                            </form>
+                        </div>
+                    </div>
+
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

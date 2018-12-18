@@ -1,0 +1,410 @@
+﻿@page
+@model CarManagement.Pages.MamoriatManagement.IndexModel
+@{
+    ViewData["Title"] = "Index";
+    int i = 1;
+}
+
+
+<div class="container">
+
+    <div class="field is-grouped is-pulled-left ">
+        <p class="control">
+            <input dir="rtl" id="myInput" class="input is-rounded" type="text">
+        </p>
+        <p class="control">
+            :جستجو
+        </p>
+
+    </div>
+
+    <button class="button is-primary toggle-modal is-pulled-right ">  جدید</button>
+
+    <div id="vahed-modal" class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title has-text-centered">ثبت شخص جدید</p>
+                <button class="delete close-modal" aria-label="close"></button>
+            </header>
+            <form method="post" asp-page="Index" asp-page-handler="Create">
+                <section class="modal-card-body has-text-right ">
+
+                    <div class="field ">
+                        <label class="label">شماره نامه </label>
+                        <div class="control">
+
+                            <input dir="rtl" asp-for="@Model.Mamoriat.ShomareNameh" class="input is-rounded" />
+
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">مبدا</label>
+                        <div class="control">
+                            
+                            <select dir="rtl" asp-for="@Model.Mamoriat.MabdaId" class="select is-fullwidth " asp-items="ViewBag.MabdaId"></select>
+
+
+                         
+
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">مقصد</label>
+                        <div class="control">
+
+                            <input dir="rtl" asp-for="@Model.Mamoriat.Maghsad" class="input is-rounded" />
+
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">تاریخ رفت</label>
+                        <div class="control">
+
+                            <input dir="rtl" asp-for="@Model.Mamoriat.TarikhRaft" class="input is-rounded" />
+
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">تاریخ برگشت</label>
+                        <div class="control">
+
+                            <input dir="rtl" asp-for="@Model.Mamoriat.TarikhBargasht" class="input is-rounded" />
+
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">زمان رفت</label>
+                        <div class="control">
+
+                            <input dir="rtl" asp-for="@Model.Mamoriat.ZamanRaft" class="input is-rounded" />
+
+                        </div>
+                    </div>
+
+
+                    <div class="field">
+                        <label class="label">زمان برگشت</label>
+                        <div class="control">
+
+                            <input dir="rtl" asp-for="@Model.Mamoriat.ZamanBargasht" class="input is-rounded" />
+
+                        </div>
+                    </div>
+                    
+                    <div class="field">
+                        <label class="label">کیلومتر رفت</label>
+                        <div class="control">
+
+                            <input dir="rtl" asp-for="@Model.Mamoriat.KilometerRaft" class="input is-rounded" />
+
+                        </div>
+                    </div>
+                    
+                    <div class="field">
+                        <label class="label">کیلومتر برگشت</label>
+                        <div class="control">
+
+                            <input dir="rtl" asp-for="@Model.Mamoriat.KilometerBargasht" class="input is-rounded" />
+
+                        </div>
+                    </div>
+                    
+                    <div class="field">
+                        <label class="label">ماشین</label>
+                        <div class="control">
+                            <select dir="rtl" asp-for="@Model.Mamoriat.CarId" class="select is-fullwidth " asp-items="ViewBag.CarId"></select>
+
+                         
+
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="field">
+                        <label class="label">راننده</label>
+                        <div class="control">
+                            <select dir="rtl" asp-for="@Model.Mamoriat.DriverId" class="select is-fullwidth " asp-items="ViewBag.DriverId"></select>
+
+
+                        </div>
+                    </div>
+
+
+
+                </section>
+                <footer class="modal-card-foot">
+                    <input type="submit" class="button is-success" value="ذخیره" />
+
+                    <input type="button" class="button close-modal" value="انصراف" />
+
+                </footer>
+
+            </form>
+        </div>
+    </div>
+
+
+    <br /><br />
+</div>
+
+
+
+<table id="myTable" dir="rtl" class=" table is-bordered is-striped is-narrow is-hoverable is-fullwidth ">
+    <thead>
+    <tr>
+        <th class="has-text-centered">
+            ردیف
+        </th>
+        <th class="has-text-centered">
+           شماره نامه 
+        </th>
+        <th class="has-text-centered">
+            مبدا
+        </th>
+        <th class="has-text-centered">
+            مقصد
+        </th>
+        <th class="has-text-centered">
+            تاریخ رفت
+        </th>
+        <th class="has-text-centered">
+            تاریخ برگشت
+        </th>
+        <th class="has-text-centered">
+           زمان رفت
+        </th>
+        <th class="has-text-centered">
+            زمان برگشت
+        </th>
+        
+        <th class="has-text-centered">
+            کیلومتر رفت
+        </th>
+        <th class="has-text-centered">
+            کیلومتر برگشت
+        </th>
+        <th class="has-text-centered">
+           خودرو
+        </th>
+        
+        <th class="has-text-centered">
+            راننده
+        </th>
+        <th class="has-text-centered">
+            ویرایش
+        </th>
+        <th class="has-text-centered">
+            حذف
+        </th>
+    </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model.LstMamoriat)
+        {
+        <tr>
+            <td class="has-text-centered">
+                @(i++)
+            </td>
+
+            <td class="has-text-centered">
+                @Html.DisplayFor(modelItem => item.Mamoriat.ShomareNameh)
+            </td>
+            <td class="has-text-centered">
+                @Html.DisplayFor(modelItem => item.MabdaName)
+            </td>
+            <td class="has-text-centered">
+                @Html.DisplayFor(modelItem => item.Mamoriat.Maghsad)
+            </td>
+
+            <td class="has-text-centered">
+                @Html.DisplayFor(modelItem => item.Mamoriat.TarikhRaft)
+            </td>
+            <td class="has-text-centered">
+                @Html.DisplayFor(modelItem => item.Mamoriat.TarikhBargasht)
+            </td>
+            <td class="has-text-centered">
+                @Html.DisplayFor(modelItem => item.Mamoriat.KilometerRaft)
+            </td>
+            <td class="has-text-centered">
+                @Html.DisplayFor(modelItem => item.Mamoriat.KilometerBargasht)
+            </td>
+            <td class="has-text-centered">
+                @Html.DisplayFor(modelItem => item.CarName)
+            </td>
+            <td class="has-text-centered">
+                @Html.DisplayFor(modelItem => item.DriverName)
+            </td>
+
+
+            <td class="has-text-centered">
+                <span class="button icon toggle-modal">
+                    <i class="fas fa-marker"></i>
+                </span>
+
+                <div id="vahed-modal" class="modal">
+                    <div class="modal-background"></div>
+                    <div class="modal-card">
+                        <header class="modal-card-head">
+                            <p class="modal-card-title has-text-centered">ویرایش</p>
+                            <button class="delete close-modal" aria-label="close"></button>
+                        </header>
+                        <form method="post" asp-page="Index" asp-page-handler="Edit">
+                            <section class="modal-card-body has-text-right ">
+
+                                <div class="field ">
+                                    <label class="label">شماره نامه </label>
+                                    <div class="control">
+
+                                        <input dir="rtl" asp-for="@Model.Mamoriat.ShomareNameh" value="@item.Mamoriat.ShomareNameh" class="input is-rounded" />
+
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label">مبدا </label>
+                                    <div class="control">
+                                        
+                                        <select dir="rtl" asp-for="@Model.Mamoriat.MabdaId" value="@item.MabdaName" class="select is-fullwidth " asp-items="ViewBag.MabdaId"></select>
+
+
+
+                                    </div>
+                                </div>
+
+                                <div class="field">
+                                    <label class="label">مقصد </label>
+                                    <div class="control">
+
+                                        <input dir="rtl" asp-for="@Model.Mamoriat.Maghsad" value="@item.Mamoriat.Maghsad" class="input is-rounded" />
+
+                                    </div>
+                                </div>
+                                
+                                
+                                <div class="field">
+                                    <label class="label">تاریخ رفت </label>
+                                    <div class="control">
+
+                                        <input dir="rtl" asp-for="@Model.Mamoriat.TarikhRaft" value="@item.Mamoriat.TarikhRaft" class="input is-rounded" />
+
+                                    </div>
+                                </div>
+                                
+                                <div class="field">
+                                    <label class="label">تاریخ برگشت </label>
+                                    <div class="control">
+
+                                        <input dir="rtl" asp-for="@Model.Mamoriat.TarikhBargasht" value="@item.Mamoriat.TarikhBargasht" class="input is-rounded" />
+
+                                    </div>
+                                </div>
+                                
+                                  
+                                <div class="field">
+                                    <label class="label">زمان رفت  </label>
+                                    <div class="control">
+
+                                        <input dir="rtl" asp-for="@Model.Mamoriat.ZamanRaft" value="@item.Mamoriat.ZamanRaft" class="input is-rounded" />
+
+                                    </div>
+                                </div>
+
+                                <div class="field">
+                                    <label class="label">زمان برگشت  </label>
+                                    <div class="control">
+
+                                        <input dir="rtl" asp-for="@Model.Mamoriat.ZamanBargasht" value="@item.Mamoriat.ZamanBargasht" class="input is-rounded" />
+
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label">کیلومتر رفت   </label>
+                                    <div class="control">
+
+                                        <input dir="rtl" asp-for="@Model.Mamoriat.KilometerRaft" value="@item.Mamoriat.KilometerRaft" class="input is-rounded" />
+
+                                    </div>
+                                </div>
+                                
+                                <div class="field">
+                                    <label class="label">کیلومتر برگشت   </label>
+                                    <div class="control">
+
+                                        <input dir="rtl" asp-for="@Model.Mamoriat.KilometerBargasht" value="@item.Mamoriat.KilometerBargasht" class="input is-rounded" />
+
+                                    </div>
+                                </div>
+
+                                <div class="field">
+                                    <label class="label">ماشین    </label>
+                                    <div class="control">
+                                        
+                                       
+                                        
+                                        <select dir="rtl" asp-for="@Model.Mamoriat.CarId" class="select is-fullwidth " asp-items="ViewBag.CarId"></select>
+
+                                    </div>
+                                </div>
+                                
+                                <div class="field">
+                                    <label class="label">راننده    </label>
+                                    <div class="control">
+
+                                        <select dir="rtl" asp-for="@Model.Mamoriat.DriverId" class="select is-fullwidth " asp-items="ViewBag.DriverId"></select>
+
+
+                                    </div>
+                                </div>
+                                
+
+                                <input asp-for="@Model.Mamoriat.Id" value="@item.Mamoriat.Id" type="hidden" />
+
+                            </section>
+                            <footer class="modal-card-foot">
+                                <input type="submit" class="button is-success" value="ذخیره" />
+
+                                <input type="button" class="button close-modal" value="انصراف" />
+
+                            </footer>
+                        </form>
+                    </div>
+                </div>
+
+            </td>
+
+            <td class="has-text-centered">
+                <span class="button icon toggle-modal">
+                    <i class="fas fa-trash"></i>
+                </span>
+
+
+                <div id="vahed-modal" class="modal">
+                    <div class="modal-background"></div>
+                    <div class="modal-card">
+                        <header class="modal-card-head">
+                            <p class="modal-card-title has-text-centered">اخطار</p>
+                            <button class="delete close-modal" aria-label="close"></button>
+                        </header>
+                        <form method="post" asp-page="Index" asp-page-handler="Delete">
+                            <section class="modal-card-body has-text-right ">حذف شود؟</section>
+                            <footer class="modal-card-foot">
+                                <input asp-for="Mamoriat.Id" type="hidden" value="@item.Mamoriat.Id" />
+                                <input type="submit" class="button is-success" value="ذخیره" />
+
+                                <input type="button" class="button close-modal" value="انصراف" />
+
+                            </footer>
+                        </form>
+                    </div>
+                </div>
+
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
